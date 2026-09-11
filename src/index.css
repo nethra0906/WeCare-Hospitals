@@ -1,13 +1,87 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+
+/*
+  Design system: "clinical ledger" — a warm-paper, chart-inspired palette that
+  trades the generic blue-gradient hospital template for an editorial, almost
+  stationery-like feel: deep ink navy, a terracotta accent used sparingly for
+  action, and a signal red reserved only for emergency contexts.
+*/
+@theme {
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-paper-50: #fbf8f1;
+  --color-paper-100: #f4eee0;
+  --color-paper-200: #e8dfc9;
+  --color-line: #ddd3b8;
+
+  --color-ink-950: #0a1626;
+  --color-ink-900: #0b2545;
+  --color-ink-800: #15325c;
+  --color-ink-700: #244a80;
+  --color-ink-600: #3a63a0;
+  --color-ink-100: #dfe7f2;
+
+  --color-rust-700: #93381f;
+  --color-rust-600: #b8492a;
+  --color-rust-500: #c1552f;
+  --color-rust-400: #d97b53;
+  --color-rust-100: #f4ddce;
+
+  --color-signal-700: #7a1512;
+  --color-signal-600: #a3211c;
+  --color-signal-100: #f6dad8;
+
+  --animate-pulse-line: pulse-line 2.4s ease-in-out infinite;
+
+  @keyframes pulse-line {
+    0%,
+    100% {
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dashoffset: -24;
+    }
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper-50);
+    color: var(--color-ink-950);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--color-rust-100);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-rust-600);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
